@@ -1,0 +1,84 @@
+# Building the Software
+
+The lora apps developed for this eBook have been built, flashed to targets, and debugged with a MacBook pro computer, running macOS Sierra 10.12.6 using Arduino version 1.8.9.  Inasmuch as the Arduino build environment is available for Linux and Windows as well, the code should be portable to Arduino environments on those computers.  As of this writing, I have not built and tested the code on those environments.
+
+Advice for setting up Arduino on Mac, Widows, and Linux is linked in the section: **Preparing the Build Environment**.  It is also widely available on the world wide web.
+
+The first step to building the apps on your computer is to obtain the source code.
+
+## Obtaining the Source Code
+
+The source code can be copied, and separated into source modules from the Appendix.  The alternative is to download the free source code .zip files that come as extras with the purchase of this eBook from leanpub.com.
+
+One zip file contains the Arduino source code for Arduino sketches LoraPing, LoraRepeat, LoraTerminal, and LoraBridge.  Separate identical copies of RH_RF95.cpp and RH_RF95.h are included in each sketch.
+
+The other zip file contains the RadioHead.zip library, without RH_RF95.cpp and RH_RF95.h. The section immediately below tells how to install the RadioHead.zip library, and other necessary arduino modules.
+
+If the source code email from leanpub is overlooked after the purchase, you can get a link to the folders from your leanpub library.
+
+## Preparing the build environment
+
+If your development computer does not contain a copy of the Arduino environment, you can obtain the latest version from <https://www.arduino.cc/en/Main/Software>.
+
+Adafruit provides excellent, detailed instructions for downloading and setting up the Arduino environment for their SAMD M0 Lora radio feather.  These instructions are located at <https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/setup> and <https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/using-with-arduino-ide>.  The latter link is helpful with cross-platform and driver issues.
+
+Further instructions covering the acquisition and use of the Adafruit SAMD Arduino core software and libraries can be found at <https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/adapting-sketches-to-m0>.
+
+Adafruit also has a helpful troubleshooting guide for getting past common Arduino setup problems.  This is located at <https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/faq>.
+
+With all the help available at the Adafruit site, you might think that getting the build environment working is a slam-dunk.  The biggest problem I encountered was getting Arduino to recognize and use the serial port on my Mac, Linux, or Windows computer.  I never did get it to find my serial port on Windows 7, service pack 1.  It took some messing with groups and permissions to get it to work on a Debian mate system, and it took time to get Arduino to recognize a serial port on the Mac.
+
+After visiting many internet sites describing the problem and its solution on all three platforms, I finally got the Mac version of Arduino to recognize a serial port, and load and run a program after reading every entry in the faq at the Adafruit troubleshooting guide linked above.
+
+## Building the applications with Arduino
+
+All four supplied applications should be copied into the Arduino user directory created by the Arduino installation. That directory also contains a libraries directory into which you can install support for your Adafruit SAMD M0 board and RadioHead.zip library.  The directory structure below worked fine on the Mac:
+
+{line-numbers=off}
+~~~~~~~~
+
+    /Users/Documents/username/Arduino/   (this directory created by Arduino installation)
+        /libraries
+            /Adafruit_IO_Arduino
+            /RadioHead   (from RadioHead.zip)
+        /LoraBridge
+        /LoraPing
+        /LoraRepeat
+        /LoraTerminal
+        
+~~~~~~~~
+
+Libraries must be installed in your Arduino environment before they can be used in a sketch.  Before you can include the Adafruit libraries, you must follow the instructions at the < https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/setup> link which tell Arduino to include Adafruit libraries in searches.
+
+Then you can choose Manage Libraries from the Tools Menu to search for and install libraries for your applications.
+
+Once you have installed the appropriate libraries, you can select them for your libraries directory by choosing Include Library from the Sketch menu and picking the desired library or libraries in the list that appears.
+
+The RadioHead.zip library is included by choosing Include Library from the Sketch menu, choosing the Add .ZIP Library option from the submenu, and then picking the RadioHead.zip file that you downloaded from leanpub.com in the file dialog that appears.
+
+
+## Building and Loading an Application
+
+The way things are supposed to work is that once you get the source code written, and libraries installed, what you can do next is click the verify checkmark at the top left of the Arduino window.  That will give you a list of any compile errors found, which you can fix by looking at the line numbers in the compile listings.  Be sure you have enabled line numbers in the editor by checking Display Line Numbers in the Preferences dialog reached when Preferences is selected in the Arduino menu.
+
+Hopefully there won't be any compile errors, since the source code has already been compiled without error on at least one computer.  But there is still room for errors of transcription or too-vague installation instructions that can lead to compile problems.
+
+Once the compile errors are fixed, the next step is to hook up your SAMD M0 board by plugging it into a USB port on your computer, and click the right arrow which is supposed to load the program onto your board.  A variety of problems can crop up at this point, from Arduino's inability to find your usb port, to its failure to load the requested program.
+
+The best source of troubleshooting information at this point is the Adafruit link: <https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/faq>.
+
+Your second best source of information is to type in your exact problem into your search engine, and peruse the results that come up. Always precede your search text with the words Arduino SAMD M0 <bug description>.  You can switch the order of the first three terms to get different lists of results.
+
+
+## Debugging the Arduino Applications
+
+There was once a time when Arduino programmers were unlikely to have much luck with breakpoint and trace capable debuggers.  That time has surely passed, but there are obstacles in the way of using such debuggers with Arduino.  Compiler integration and the need for a debugger user interface are two such obstacles.
+
+The best bet is to use the Arduino Serial object to output clues about how far along the program got before the errors started happening.  In the case of the LoraBridge, you can do the same thing, but you will need to use the Serial1 object, and look for your debug output on Adafruit's Bluefruit app for iPhone or Android.  If that doesn't work, you could see if the same problem arises in the LoraTerminal application which is nearly identical to the LoraBridge app, except that you can send debug output to the Serial object instead of the Serial1 object.
+
+
+
+
+
+
+

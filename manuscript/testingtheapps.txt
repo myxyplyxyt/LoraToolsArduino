@@ -1,0 +1,172 @@
+# Testing the applications
+
+The four applications are themselves the tools needed to test the four applications.  A good place to start is with the LoraPing app; and debug that until you have verified that it is working.
+
+
+## Testing the ping application
+
+A good first test for the ping application is to load and run the program with the Arduino development program.  First make sure that the DEBUG definition is present at the top of the program and is not commented out.  Then click the right arrow near the top left of the Arduino environment (Build and Run icon). Click on magnifying glass at the top right side of the Arduino window (Serial Monitor icon), and you should see something like this:
+
+{line-numbers=off}
+~~~~~~~~
+Radio Reset Done
+LoRa radio init OK!
+Set Freq to: 915.00
+PING ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
+PING BCDEFGHIJKLMNOPQRSTUVWXYZ1234567890A
+PING CDEFGHIJKLMNOPQRSTUVWXYZ1234567890AB
+...   ...   ...    ...   ...   ...   ...
+PING OPQRSTUVWXYZ1234567890ABCDEFGHIJKLMN
+~~~~~~~~
+
+If that does not happen, check for any error messages that appear in the Arduino build output in the black field at the bottom of the window.
+
+There could be a compile error, or a message that no board is recognized.  If the former, you can do a line by line check of the code against the LoraPing code in the Appendix.  If the latter, you can try double-clicking the SAMD reset button to make sure it starts the bootloader, as indicated by lazy, rhythmic blinking of the red LED.  Then try the right arrow again to load and run the ping program.  If that does not work try double clicking the board reset button again, but this time load the Blink example from the examples selection in the Arduino File menu.  If the Blink example works, retry loading the LoraPing program. That sometimes cures the an Arduino failure to recognize the USB serial port.  If it still doesn't work, consult the troubleshooting link in the section on  **Building the Software** or search through the prolific documentation on "Arduino does not recognize serial port" on the world wide web.
+
+When the ping output shown above is seen in the Arduino serial monitor, it is time to make sure that the radio transmission is actually working. The easiest way is to test it with an R820T Software Defined Radio attached to your computer.
+
+![](images/R820TSDR.png)
+
+Start the ping program running, and watch 915MHz with a real-time spectrum analyzer such as Gqrx.
+
+![](images/gqrxScreen.png)
+
+
+If the pings are present, you will see them on your screen.  If you don't see anything, check the settings, and fiddle with the spectrum analyzer until you are sure that is not the problem.
+
+There is not much that can go wrong with the hardware.  Even without an antenna on the board, you should see evidence of the pings with the SAMD M0 radio board next to the analyzer antenna.  If you do not, make sure USB or battery power is present when you test the board.
+
+You can test the ping program without the Spectrum Analyzer if you can get the terminal or bridge program working.  But the best bet is to stick with the ping program until it works. Verify that the radio chip select, reset, and interrupt pin assignments in use are:
+
+{line-numbers=off}
+~~~~~~~~
+#define RFM95_CS 8
+#define RFM95_RST 4
+#define RFM95_INT 3
+~~~~~~~~
+
+The SPI pin assignments are made in the Adafruit Arduino Core library for the SAMD M0 board and should be the ones labled on the board.  If your ping program is running you should be able to see with an oscilloscope, data going out on the MOSI and SCK pins.  If you dont, then that is why there is no radio output.  Try to find out why there is no output on those pins.  Once you get the ping program running, the others should be easier.
+
+
+## Testing the Lora Terminal application
+
+The terminal app is a useful program to test next, because it lets you send and receive lora messages with the Arduino serial console.
+
+You will need two Adafruit SAMD M0 Lora boards to test the terminal application.  Program one board with the LoraPing application (first comment out the DEBUG definition and resave the program), and the other with the Terminal application.
+
+Power up the terminal application first, and open its serial monitor.    If initialization works, you will see the initialization messages:
+
+{line-numbers=off}
+~~~~~~~~
+Radio Reset Done
+LoRa radio init OK!
+Set Freq to: 915.00
+~~~~~~~~
+
+If initialization doesn't work, go back through and check the code line-for-line, verify that the build works, and that the program is actually being loaded on to the board when you click the Arduino right arrow load button.  Check for error messages in the compile and load, and generally do what you did to debug the ping program.  (That is why it was important to get that done first.)
+
+Once you get the terminal program to initialize correctly, leave it running and power up the ping program. Verify that the ping output starts coming out on the serial console of the terminal application.
+
+{line-numbers=off}
+~~~~~~~~
+PING ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890
+PING BCDEFGHIJKLMNOPQRSTUVWXYZ1234567890A
+PING CDEFGHIJKLMNOPQRSTUVWXYZ1234567890AB
+...  ...    ...   ...   ...   ...   ...
+PING XYZ1234567890ABCDEFGHIJKLMNOPQRSTUVW
+
+and so on.
+~~~~~~~~
+
+If you dont see pings on the serial monitor of your terminal program, go back and recheck the ping program to make sure it is sending data.  If the ping program is sending data, and the baud rate of the Serial port in the ping program is set to 115200, the problem must lie with the terminal program.
+
+It may be time to to insert Serial.print statements into the terminal program to find out where in the program it goes wrong.  Hopefully, that will help you discover why it does not produce the expected output. 
+
+
+## Testing the LoraRepeat application
+
+Load the LoraRepeat application with the Arduino environment.  If the DEBUG definition near the top of the file is commented out, uncomment it and save the change. Next click the right arrow to load the program with the Arduino environment.  You should see the following in the Arduino serial monitor:
+
+{line-numbers=off}
+~~~~~~~~
+SAMD Lora Feather Repeat Test!
+LoRa radio init OK!
+Set Freq to: 915.00
+~~~~~~~~
+
+If that does not happen, check any error messages that appear in the Arduino build terminal at the bottom of the window.  There could be a compile error, or a message that no board is recognized.  If the former, you can do a line by line check of the code against the LoraRepeat code in the Appendix.  If the latter, try double clicking the reset button on the board and loading the Blink example from the examples selection in the Arduino File menu.  If the Blink example works, retry loading the LoraRepeat program.  If not, you may have the serial port not recognized issue. There is prolific doumentation of the problem and possible solutions on the internet.
+
+Once the repeat application runs and outputs the initialization text above, comment out the DEBUG definition near the top of the repeat application and rebuild the program.  (This is necessary to keep the application from hanging up if it tries to use the Serial object while it is not connected to the Arduino environment.  When you comment out the DEBUG definition you tell it to use the Serial1 object, which passes data across the RX/TX pins instead of the Arduino serial console.)
+
+With a working terminal application running on one board and connected to the Arduino environment, power up the repeat application on the second board.  With both boards running, type a message into the input field of the LoraTerminal serial monitor input field.  If both the LoraTerminal and the LoraRepeat programs are working, the message you typed will appear after a short delay in the serial monitor history field of the Terminal program.
+
+
+## Testing the LoraBridge application
+
+### First LoraBridge Test
+
+For this test you can use a free Adafruit cell phone app called Bluefruit, running on a BLE capable cell phone.  Bluefruit is available at the iPhone App store and GooglePlay.  
+
+You will also need the LoraPing program running on a separate SAMD M0 board, not connected to the Arduino environment. Comment out the DEBUG definition and rebuild the ping program before you run it.
+  
+Next follow the steps described below to pair the Bluefruit Friend with the Bluefruit App running on your BLE capable cellphone with bluetooth turned on
+
+
+1)  Load the Bluefruit App from GooglePlay or the iPhone App Store.
+
+2)  Turn on Bluetooth on your BLE-capable cellphone.
+
+3)  Start the Bluefruit App.  It comes up in central mode.
+
+![](images/bluefruitCentral.png)
+
+4)  Start running the LoraBridge app on a SAMD M0 board with the Bluefruit Friend attached via the six connections described in the section on **Building the Hardware**.  Bluefruit Friend periodically double flashes it's red LED when it is in UART mode.
+
+5)  Presently a notice should appear in the Bluefruit Central Mode screen, announcing the availability of Adafruit Bluefruit LE Uart Capable
+
+![](images/bluefruitCentralAlert.png)
+
+Touch the Connect button in the notice, and the blue LED on the Bluefruit Friend will come on steady, and the blue fruit Modules screen will appear.
+
+![](images/bluefruitModules.png)
+
+6) Choose UART in the function menu that appears, and the UART screen will appear.
+
+![](images/bluefruitUART.png)
+
+If your LoraPing program is not already running on another SMD M0 board, launch it now. You should begin to see ping messages appearing in the UART screen on your Bluefruit app.
+
+![](images/bluefruitLoraPings.png)
+
+
+### Second LoraBridge Test
+
+In the first LoraBridge test you verified that the LoraBridge program can receive Lora messages and pass them via Bluetooth to a nearby iPhone or Android.
+
+In this test you verify that the Lora Bridge can both pass LoRa messages along to bluetooth, but that it can pass bluetooth messages along to LoRa.  To do this you will need a copy of the LoraRepeat program running on a SAMD M0 Lora board separate from the one running the LoraBridge application.
+
+The LoraRepeat program just receives a Lora message, waits a bit and sends it back out.
+So in this test you will power up both applications, as well as your Bluefruit program on your BLE-capable cellphone.  Then you pair the LoraBridge program with your Bluefruit program UART feature.
+
+Next type a message into the Bluefruit UART Screen and press return.  If the LoraRepeat program is running, you should see two copies of what you typed appear in the Bluefruit UART history screen, one which is echoed locally by the Bluefruit UART screen, and one which is received from the LoraRepeat program. The lora text received from the repeat program is written by the LoraBridge program to the Bluetooth friend UART, which transmits it to you cellphone, which displays it on your bluetooth UART screen.
+
+To verify that it is the LoraRepeat program producing the copy of the message, turn it off and type something into the UART input field and verify that it appears only once in the UART history screen.
+
+Then turn the LoraRepeat program back on, and once again enter some text, verifying that two copies of the text appear in the UART history screen.
+
+
+## Range Measurement
+
+Anecdotal reports place the range of the lora radio somewhere between a kilometer and 20 miles depending upon transmit power, terrain, intervening structures, and antenna used.  Some of those reports were for lora radios operating at 432 MHz, which have inherently longer ranges than those operating at 915 MHz.
+
+At the +20 dBm radio chip power level with a 915 MHz, quarter-wave antenna (8.18cm), the Adafruit radios of this eBook can transmit and receive over 600 yards down a winding tree-lined street.  A simple Yagi antenna, with 2.5 dBi directional antenna gain can transmit and receive at nearly double that range or about a kilometer.  You can buy such an antenna at <www.apogeerockets.com>.
+
+
+![](images/apogeeYagi.png)
+
+
+It is easy to conduct your own range tests using the ping program and the bridge program with your cell-phone.  Just turn on the ping program and put the radio at the elevation for which you wish to check the range.  Then walk away from the radio with the ping program, watching for pings as they arrive on the Bluefruit uart screen on your cell phone.
+
+Another way to run the test is to set the repeat program at a fixed location and walk away with the bridge program, sending messages from your cell phone via the bridge and watching to see which messages are returned at what distance.  You can drop pins onto your mapping program for every message received.
+
+Yagi antennas with 17 to 18 dBi gain can be purchased for one or two hundred dollars.  Such an antenna will substantially increase the range of a lora radio.  Such antennas are too big to carry around, but should increase range to ten kilometers or so.

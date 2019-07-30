@@ -1,0 +1,73 @@
+# Software Modules
+
+The paragraphs below give a more detailed explanation of the purpose and function of the ping, repeat, terminal and BLE-lora bridge applications.
+
+A subsequent section describes the nature and purpose of three changes to the RadioHead library modules RH_RF95.cpp and RH_RF95.h.
+
+The code for the lora apps and radio head changes is included in the Appendix.
+
+## LoRaPing Application
+
+This application sends periodic lora ping messages. It is useful for testing and debugging in Lora packet links and networks.  It is also useful for range-testing LoRa radios.
+
+The ping interval is determined by a program setting.  It uses three source files: LoRaPing.ino, RH_RF95.cpp, and RH_RF95.h, as well as an installation of the modified RadioHead library in RadioHead.zip.  Also installed is the library Adafruit_IO_Arduino.
+
+![](images/pingOverview.png)
+
+The flowchart for the ping app is simply:
+
+![](images/pingFlowchart.png) 
+
+
+
+## Repeat Application
+
+The repeat application waits 100msec after receiving a lora packet, and retransmits it.
+It is useful in range testing, or in extending the reach of LoRa radio links.  When used as a range extender, it is probably a good idea to modify the radios in the link to go to sleep for a second or two after transmitting.
+
+LoraRepeat has three source files: LoRaRepeat.ino, RH_RF95.cpp, and RH_RF95.h, as well as an installationfile for the modified RadioHead library in RadioHead.zip.  Also installed is the library Adafruit_IO_Arduino.
+
+![](images/repeatOverview.png)
+
+The flowchart for the repeat app is:
+
+![](images/repeatFlowchart.png)
+ 
+
+## Lora Terminal Application
+
+The terminal application allows the user to use Arduino’s built-in serial terminal to exchange lora messages with remote devices.  It can be used for text communication with another Lora Terminal, or anyone who is in-range and equipped with a loraBridge device and Adafruit Bluefruit app on iPhone or Android.
+
+![](images/terminalOverview.png)
+
+The flowchart for the terminal app is:
+
+![](images/terminalFlowchart.png)
+ 
+
+## Lora Bridge Application
+
+The lora text bridge application receives Bluetooth Uart messages and sends them back out as Lora messages as well as the other way around.  It is useful in lora range testing, as well as mobile communication with lora-connected persons or devices. Anyone with an iPhone or Android  can use Adafruit’s Blufruit app for this purpose. Lora communication is less susceptible to eavesdropping than cellular communication.
+
+![](images/bridgeOverview.png)
+
+The flowchart for the bridge app is:
+
+![](images/bridgeFlowchart.png)
+ 
+
+## RadioHead Changes
+
+A back-leveled version of the RadioHead library for Arduino SAMD M0 was used because it is simpler than the latest version.
+
+The library used can be installed from the RadioHead.zip file distributed with this eBook.  That zip file includes every part of the library except the RH_RF95.cpp and RH_RF95.h files.  Those source modules were slightly modified and are included the individual app directories.  To install the RadioHead.zip library, select Include Library from the Arduino Sketch menu.  Then select Include .ZIP Library from the menu that comes up.  The changes to RH_RF95.cpp and RH_RF95.h are documented below:
+
+The changes made to RH_RF95.cpp and RH_RF95.h were:
+
+1)  The RadioHead Library RH_RF95.cpp and .h files define a four-byte header within the payload of the lora message. That header can be used, if desired, with another RadioHead driver module that supports network identifiers and flags for each node in a Lora Network.  Those identifiers and flags are unnecessary.  They can be included as part of the message if needed, but they complicate the program structure, which conflicts with the goal of simplicity for this eBook.
+
+2)  The validateRxBuf() function was modified to ignore the network identifiers and flags, and the four-byte header definition, which are used to identify nodes in the network.  If network identifiers are later included within the message, the validateRxBuf() routine can be modified to check them.
+
+3)  A method called modeIsTx() was added to RH_RF95.cpp to return true if the radio is busy transmitting data, and false if it is not transmitting.  This simplifies the code which must wait until the transmit complete interrupt is received before doing anything else.
+
+

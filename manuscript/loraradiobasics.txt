@@ -1,0 +1,172 @@
+# LoRa Radio Information
+
+## Basic Information
+
+LoRa radio was patented and introduced by Semtech Inc.  It is a low power, spread-spectrum, low transmission rate, packet radio.  It uses FM chirps over the channel bandwidth as an RF transmission upon which it encodes each signal symbol with a sequence of frequency jumps (called chips).  The number of chips per signal symbol is called the spreading factor. 
+
+A pdf file containing a summary of the LoRa modulation scheme is available at the link below:
+
+  <https://www.semtech.com/uploads/documents/an1200.22.pdf>
+
+For an thorough analysis of the modulation alogrithms in the Semtech microchips, watch this hour long video by the very bright guy who reverse engineered them:
+
+  <https://ftp.fau.de/cdn.media.ccc.de//congress/2016/h264-hd/33c3-7945-eng-Decoding_the_LoRa_PHY.mp4>
+  
+For the purposes of this eBook, it may be enough to describe each of the signal parameters, and how they affect signal transmission.
+
+
+## Lora Signal Parameters
+
+The main LoRa parameter settings are RF center frequency, bandwidth, output power, spreading factor, and coding rate.
+
+Each parameter is discussed separately below:
+
+### RF Frequency
+
+This is the center frequency around which the FM chirps are produced.  A wide range of RF frequencies are possible with Semtech radio microchips, including the 433 MHz band, 868 MHz, and the 915 MHz band.  In the US, Europe, and Asia only certain frequencies are used in compliance with local regulations.  In the US 433 MHz band is set aside for licensed amateurs, and for commercial use in industrial, commercial, and port areas. The upper band, 902 to 928 MHz may be used by unlicensed amateurs, provided they do not exceed power-level/duty-cycle restrictions. The 868 MHz frequency may be used by licensed amateurs in the US.  It can be used unlicensed in Europe with power-level/duty-cycle restrictions similar to those in the US.
+
+### Bandwidth
+
+Bandwidth of the SX1276 chip commonly takes one of the following values:  125, 250, or 500kHz.  The FM chirps sweep from one band limit to the other, wrapping at the limits, subject to frequency jumps made by the modulation algorithm.
+
+### Output Power
+
+Power can be set from -4 to +17dBm, and there is a switch that can boost it to +23dBm.  The latter level can only be used with a 1% duty-cycle in the US.  If the antenna is not matched to the radio transmiter output impedence, the power level will most likely never come close to the power at the output pin (max 100milliwatts).
+
+### Spreading Factor
+
+This is the number of modulation-introduced frequency jumps, called chips, that may occur in the course of transmitting one signal symbol.  In the SX1276 it can vary between 7 and 12.  At spread factor of 7, 128 distinct symbols can be transmitted.  At 12, 4096 distinct symbols can be output.  For ascii text applications, 7 is adequate.
+
+### Lora Coding Rate
+
+The coding rate is a parameter used by a forward error correction algorithm implemented in the microchip.  It is the number of bits used to encode a four-bit nybble, and may be set between 5 and 8 inclusive.
+
+
+## Signal Parameter Relationships
+
+The information below is drawn from the Semtech document referenced at the beginning of this section.
+
+The relationship between the data bit rate, symbol rate and chip rate for LoRa modulation can be expressed as follows:
+
+### Bit Rate
+
+{line-numbers=off}
+~~~~~~~~
+
+    BR = SF*BW/(2^SF)
+
+where SF = spread factor
+      BW = band width
+      (2^SF) = the number of unique symbols that can be
+             transmitted with a given spread factor.
+             
+~~~~~~~~
+
+The higher the spread factor for a given bandwidth, the lower the bitrate, and the more processing gain of the signal.
+
+### Symbol Period
+
+This is the time it takes to transmit a modulation symbol, which consists of SF chips
+
+{line-numbers=off}
+~~~~~~~~
+
+    TS =  (2^SF)/BW  seconds
+    
+~~~~~~~~
+
+### Symbol Rate
+
+{line-numbers=off}
+~~~~~~~~
+
+This is the reciprocal of the symbol period
+
+    RS = BW/(2^SF)  symbols/second
+    
+~~~~~~~~
+
+
+### Chip Rate
+
+{line-numbers=off}
+~~~~~~~~
+
+    CR = (2^SF)* RS
+    
+    which works out as one chip for each Hz of bandwidth each second
+    
+~~~~~~~~
+
+### Effective Bit Rate
+
+{line-numbers=off}
+~~~~~~~~
+
+LoRa supports forward error correction which introduces from 1 to 4 redundant bits per nybble of data.  This reduces the effective bit rate according to the following formula:
+
+   EBR = BR * 4/(Coding Rate)
+   
+~~~~~~~~
+
+
+## Example Use of Formulas
+
+The following calculation shows one use of these formulas:
+
+The lora ping app transmits 42 8 bit characters per ping.
+The bandwidth is set to 500 kHz.
+The coding rate is 8.
+The spreading factor is 12.
+
+What is the duration of a ping transmission?
+
+BR = 12 * 500000 /  4096 = 1465
+EBR = 1465/2 = 732 bits per second.
+
+A ping transmission has 42*8 bits or 336 bits.
+
+So the ping transmission takes 336/732 = 459 milliseconds.
+
+Assuming your radiated output is actually 20dB, the 1% duty cycle restriction will apply. If you want to comply, you should be on the air no more than a total of 36 seconds per hour.  So you should send pings at an average rate no greater than:
+
+{line-numbers=off}
+~~~~~~~~
+
+60000/459 = 131 per hour
+
+or 1 every 27.5 seconds
+
+~~~~~~~~
+
+This may be fine for some purposes, but not so good for others.
+
+If you need remote data updated more often than once every 28 seconds, you can reduce the duration of a transmission by increasing the bit rate.  That can be done by reducing the spread factor, but the resulting loss of processing gain may lower the distance from which you can receive the data.
+
+For more detailed analysis of LoRa duty-cycle and other limitations, check out the white paper at:  <https://arxiv.org/pdf/1607.08011.pdf>.
+
+## Radio range also depends upon the signal parameters.
+
+The following section from the RadioHead module for the RFM95 radio's code module, RFM95.h describes range achieved at 432MHz under a couple of different conditions
+
+{line-numbers=off}
+~~~~~~~~
+/// \par Range
+///
+/// We have made some simple range tests under the following conditions:
+/// - rf95_client base station connected to a VHF discone antenna at 8m height above ground
+/// - rf95_server mobile connected to 17.3cm 1/4 wavelength antenna at 1m height, no ground plane.
+/// - Both configured for 13dBm, 434MHz, Bw = 125 kHz, Cr = 4/8, Sf = 4096chips/symbol, CRC on. Slow+long range
+/// - Minimum reported RSSI seen for successful comms was about -91
+/// - Range over flat ground through heavy trees and vegetation approx 2km.
+/// - At 20dBm (100mW) otherwise identical conditions approx 3km.
+/// - At 20dBm, along salt water flat sandy beach, 3.2km.
+///
+/// It should be noted that at this data rate, a 12 octet message takes 2 seconds to transmit.
+///
+/// At 20dBm (100mW) with Bw = 125 kHz, Cr = 4/5, Sf = 128chips/symbol, CRC on. 
+/// (Default medium range) in the conditions described above.
+/// - Range over flat ground through heavy trees and vegetation approx 2km.
+~~~~~~~~
+
+I made a simple range test with the adafruit SAMD M0 Arduino board using 915 MHz center frequency, and  8.2cm quarterwave hookup wire antennas using no ground plane.  When configured with Radio Head's default parameters for medium range and speed, at a 20dBm power setting, the minimum range achieved down a winding, tree-lined road was 600Yds.

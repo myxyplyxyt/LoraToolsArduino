@@ -1,0 +1,41 @@
+# Using the Applications
+
+## Device networks
+
+Perimeter or area security sensors can be equipped with low power processors and lora radios, to communicate by texting data and or alarms to a central monitoring station.  
+
+This kind of network can be built with just the lora radio boards you programmed; or an additional network layer may be added to the firmware to allow centralized management of a larger number of such nodes.
+
+## Tools for debugging LoRa networks
+
+These basic programs or improved versions of them are useful for PHY level debugging in LoRaWann or LoRa mesh networks.
+
+##   Compartmentalized asset or personnel tracking.
+
+LoRa networks are reported to be suitable for locating people or things in small or large rooms of a building, since interior walls tend to substantially attenuate the transmissions. 
+
+Give each person or thing to be tracked a LoRa transmitter with a ping unique to that person or thing. Place an embedded PC with a LoRa modem or bridge in each room, which appends the ping data to a location id and backhauls that data to a central tracking computer.  People or assets can then be tracked from the central computer as they move about the building from room to room.
+
+##  Secure local texting.
+
+Text messages can be sent from Bluefruit with the BLE Lora bridge.  Everyone in range with a BLE lora bridge or lora terminal will get the message.  The messages bypass the cell network, and are therefore less subject to eavesdropping than cellphones.  A prospective eavesdropper would have to have a lora radio set up with the same parameters as yours, and be within a kilometer or so of your position.
+
+
+##  Finding your pet
+
+Finding your lora-equipped pet should be possible if he or she is within a few hundred yards (or a thousand yards or more with a Yagi antenna) of you.  You will want to modify the LoraBridge program to output the RSSI of every message received to let you know whether you are getting warmer or colder.  If you have a portable Yagi antenna, you can home in on the direction to your pet.
+
+## Rocket science
+
+Model rocket telemetry is possible with a Yagi for gathering data from a rocket in flight.  Lora should also work well for receiving low-bandwidth data from drones.
+
+## Neighborhood communication
+
+Neighborhood communication networks should work pretty well for everybody within a couple or three blocks.  Strategic placement of repeaters could extend range and solve cases of low signal strength.
+
+
+
+
+
+
+
