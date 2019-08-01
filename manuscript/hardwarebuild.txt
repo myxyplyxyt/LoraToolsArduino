@@ -1,6 +1,6 @@
 # Building The Hardware
 
-## Adafruit’s Atmel SAMD M0 Lora Radio Board ##
+## Adafruit Atmel SAMD M0 Lora Radio Board ##
 
 It doesn’t get any simpler than this.  The only necessary modification to the board from Adafruit was to add an antenna and battery. An antenna composed of 8.2cm of jumper wire can be soldered into the wire antenna hole at one end of the board.  Unless you are good at soldering antenna sockets, the jumper wire antenna is your best bet.
 
