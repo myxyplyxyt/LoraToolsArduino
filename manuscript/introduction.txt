@@ -12,10 +12,6 @@ Original source code written for the applications is included in the Appendix. S
  
 The information in this book is most suitable for Arduino-familiar hobbyists and engineers, who want to gain hands-on experience with the LoRa radio technology and an Atmel SAMD M0 Arduino compatible board with an on-board Semtech Lora radio, using a RadioHead Arduino driver.
 
-## Cautions
-
-The code has been built and tested using a MacBook Pro with macOS Sierra 10.12.6.  Inasmuch as the Arduino build environment is available for Linux and Windows as well, the code should be portable to Arduino environments on those computers.  As of this writing, I have built an earlier version of the programs on Linux, but not on Windows.
-
 ## Hardware Summary
 
 The processor boards used for the lora programs are the **Adafruit Feather M0 with RFM95 LoRa Radio - 900MHz** and the **Adafruit Bluefruit LE UART Friend - Bluetooth** from the same vendor.
