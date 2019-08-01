@@ -32,7 +32,7 @@
  // this program.  The RH_LORA_HEADER_LEN was
  // set to 0, the validateRxBuf routine was modified
  // to eliminate separate header bytes, and
- // the bool modeIsTx() method was added to
+ // the bool isModeTx() method was added to
  // simplify the handleIo routine.
 #include <SPI.h>
 #include "RH_RF95.h"
@@ -127,7 +127,7 @@ void handleIo(void)
    
    /*
     *  if LoRa received, send it to BLE uart
-    *  modeIsTx() method was added to rf95 to
+    *  isModeTx() method was added to rf95 to
     *  support soonest possible reception of
     *  of incoming lora data.
     */
@@ -151,7 +151,7 @@ void handleIo(void)
             outbuf[outdx++]=ch;
             if(outdx>=LORA_MAX_MESSAGE_LEN || ch==10 || ch==13 ) {
                 rf95.send(outbuf,outdx);
-                while(rf95.modeIsTx()) delay(1);  // modeIsTx method added to rf95 for this purpose.
+                while(rf95.isModeTx()) delay(1);  // isModeTx method added to rf95 for this purpose.
                 delay(1);
                 break;                
             }

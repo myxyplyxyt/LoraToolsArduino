@@ -23,8 +23,8 @@ Add six jumpers between the two boards.  The jumpers go between:
          RX0---------------------------TX1
          RTS(11)-----------------------CTS
          CTS(12)-----------------------RTS
-         3V----------------------------GND
-         GND---------------------------VIN
+         3V----------------------------VIN
+         GND---------------------------GND
          
 ~~~~~~~~
 
@@ -33,13 +33,13 @@ Add six jumpers between the two boards.  The jumpers go between:
 
 ## LoraBridge Portable ##
 
-This board was put together for range testing.  It consists of the same two boards and jumpers as the breadboard, but jumper connections are made directly between the two boards.
+This board was put together to help with range testing.  It consists of the same two boards and jumpers as the breadboard, but jumper connections are made directly between the two boards.
 
 ![](images/loraBridgeDetail.jpg)
 
 A plastic envelope or credit card case works to carry the bridge boards around, while the Adafruit Blufruit iPhone app can be used to communicate through the bridge with a remote lora board.  For range testing, the remote lora board can be either a repeater or a pinger.
 
-If you have a collaborator, you can communicate remotely with him or her via the lora terminal app running on the arduino development program.
+If you have a collaborator, you can use the portable bridge board to communicate remotely with him or her via Android or iPhone using the Adafruit Bluefruit app.
 
 ![](images/loraBridgePortable.png)
 

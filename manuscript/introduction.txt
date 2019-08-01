@@ -6,19 +6,19 @@ It is useful for such things as perimeter security devices, packet radio communi
 
 This eBook describes software developed for the Adafruit SAMD M0 Lora Board, using the Arduino IDE with RadioHead Library.  That processor board with radio are available for purchase at adafruit.com.  The boards are pictured and links given to complete technical information at adafruit.com.
 
-Software modules developed for this eBook are:  Lora ping, lora repeat, arduino/lora terminal,  and bluetooth/lora part bridge applications.  The architecture and/or design of each of the software modules is described in a section of this book.
+Software modules developed for this eBook are:  Lora ping, lora repeat, arduino-lora terminal,  and bluetooth-lora bridge applications.  The architecture and/or design of each of the software modules is described in a section of this book.
 
-Original source code written for the applications is included in the Appendix.  In addition, the buyer of this eBook gets free access to the complete source code, including Arduino libraries and build directories. and makefiles, Instructions are supplied for building and debugging the modules on OS X, Linux, or Windows systems.
-
-The information in this book is most suitable for Arduino-competent hobbyists and engineers, who want to gain hands-on experience with the LoRa radio technology and an Atmel SAMD M0 Arduino compatible board with an on-board Semtech Lora radio, using a RadioHead arduino driver.
+Original source code written for the applications is included in the Appendix. Suggestions are given for building the hardware and software modules in the Arduino environment using Adafruit and RadioHead libraries. Are also supplied are hints for testing and debugging the modules.
+ 
+The information in this book is most suitable for Arduino-familiar hobbyists and engineers, who want to gain hands-on experience with the LoRa radio technology and an Atmel SAMD M0 Arduino compatible board with an on-board Semtech Lora radio, using a RadioHead Arduino driver.
 
 ## Cautions
 
-The code has been built and tested using a MacBook Pro with macOS Sierra 10.12.6.  Inasmuch as the Arduino build environment is available for Linux and Windows as well, the code should be portable to Arduino environments on those computers.  As of this writing, I have not built and tested the code on those environments.
+The code has been built and tested using a MacBook Pro with macOS Sierra 10.12.6.  Inasmuch as the Arduino build environment is available for Linux and Windows as well, the code should be portable to Arduino environments on those computers.  As of this writing, I have built an earlier version of the programs on Linux, but not on Windows.
 
 ## Hardware Summary
 
-The processor boards used for the lora programs are the Adafruit Feather M0 with RFM95 LoRa Radio - 900MHz** and the **Adafruit Bluefruit LE UART Friend - Bluetooth** from the same vendor.
+The processor boards used for the lora programs are the **Adafruit Feather M0 with RFM95 LoRa Radio - 900MHz** and the **Adafruit Bluefruit LE UART Friend - Bluetooth** from the same vendor.
   
 ![](images/loraBridgeBreadboard.png)
 
@@ -38,15 +38,12 @@ The processor board can charge its own battery when connected to USB.
 
 ## Development Tool Summary
 
-The Arduino build environment, once you get over initial difficulties with
-finding and setting up a serial port, is more user friendly and easy
-to use than, for instance, the Nordic NRF52 build environment, or Visual
-Studio Code.  Nevertheless, the usual problems with configuration and setup require patience and determination to get through.
+The Arduino build environment, once you get past setting up a serial port, is more user friendly and easier to use than the Nordic NRF52 build environment, or Visual Studio Code.  Nevertheless, the usual problems with configuration and setup require patience and determination to get through.
 
-Projects do not require make files, or elaborate configuration dialogs, although it is necessary to see that the proper board support libraries are loaded.  Adafruit learning modules give helpful clues for finding your way through the usual setup difficulties.
+Projects do not need make files or elaborate configuration dialogs; but it is necessary to see that the proper board support libraries are loaded.  Adafruit learning modules give helpful clues for finding your way through the setup procedures.
 
 The Arduino environment does not support breakpoints, but does provide serial
-output to the IDE serial monitor for outputting data to support debugging.
+output to the its serial monitor for outputting data in support of debugging.
 
 
 

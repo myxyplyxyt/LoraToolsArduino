@@ -25,7 +25,7 @@
  */
 #include <Arduino.h>
 #include "RH_RF95.h"    // RH_RF95 module and header modified
-                        // bool modeIsTx method added, RH_RF95_HEADER_LEN set to zero
+                        // bool isModeTx method added, RH_RF95_HEADER_LEN set to zero
                         // and validateRxBuf modified to accept buffers without headers.
                         // if addresses and flags needed, they can be added with comma
                         // separated text fields
@@ -56,7 +56,7 @@
  // this program.  The RH_LORA_HEADER_LEN was
  // set to 0, the validateRx routine was modified
  // to eliminate separate header bytes, and
- // the bool modeIsTx() method was added to
+ // the bool isModeTx() method was added to
  // simplify the handleIo routine.
  
 RH_RF95 rf95(RFM95_CS, RFM95_INT);
@@ -136,7 +136,7 @@ void handleIo(void)
  /*
   *  ** if lora output is ready to send, transfer it
   *  ** into radio chip and trigger transmission.
-  *  ** modeIsTx() method was added to rf95 to
+  *  ** isModeTx() method was added to rf95 to
   *  ** support soonest possible reception of
   *  ** of incoming lora data.
   */
@@ -146,7 +146,7 @@ void handleIo(void)
             outbuf[outdx++]=ch;
             if(outdx>=LORA_MAX_MESSAGE_LEN || ch==10 || ch==13 ) {
                 rf95.send(outbuf,outdx);
-                while(rf95.modeIsTx()) delay(1);  // modeIsTx method added to rf95 for this purpose.
+                while(rf95.isModeTx()) delay(1);  // isModeTx method added to rf95 for this purpose.
                 delay(1);
                 break;                
             }

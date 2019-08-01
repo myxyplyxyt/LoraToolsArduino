@@ -656,7 +656,7 @@ public:
     void           setModeTx();
     
     /// Added to let client know when Tx mode is over.
-    bool           modeIsTx();
+    bool           isModeTx();
 
     /// Sets the transmitter power output level, and configures the transmitter pin.
     /// Be a good neighbour and set the lowest power level you need.

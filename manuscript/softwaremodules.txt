@@ -1,6 +1,6 @@
 # Software Modules
 
-The paragraphs below give a more detailed explanation of the purpose and function of the ping, repeat, terminal and BLE-lora bridge applications.
+The paragraphs and figures below give a more detailed explanation of the purpose and function of the ping, repeat, terminal and BLE-lora bridge applications.  The dotted hexagons in the figures are software modules, and the labels on the arrows are calls to functions in the target module.
 
 A subsequent section describes the nature and purpose of three changes to the RadioHead library modules RH_RF95.cpp and RH_RF95.h.
 
@@ -47,7 +47,7 @@ The flowchart for the terminal app is:
 
 ## Lora Bridge Application
 
-The lora text bridge application receives Bluetooth Uart messages and sends them back out as Lora messages as well as the other way around.  It is useful in lora range testing, as well as mobile communication with lora-connected persons or devices. Anyone with an iPhone or Android  can use Adafruit’s Blufruit app for this purpose. Lora communication is less susceptible to eavesdropping than cellular communication.
+The lora text bridge application receives Bluetooth Uart messages and sends them back out as Lora messages as well as the other way around.  It is useful in lora range testing, as well as mobile communication with lora-connected persons or devices. Anyone with an iPhone or Android  can use Adafruit’s Bluefruit app for this purpose.
 
 ![](images/bridgeOverview.png)
 

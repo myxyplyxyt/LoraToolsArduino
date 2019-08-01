@@ -167,7 +167,7 @@ void RH_RF95::handleInterrupt()
 //
 // added to let user find out when tx mode is over
 //
-bool RH_RF95::modeIsTx()
+bool RH_RF95::isModeTx()
 {
     return (_mode == RHModeTx);
 }
@@ -433,4 +433,3 @@ bool RH_RF95::isChannelActive()
 
     return _cad;
 }
-

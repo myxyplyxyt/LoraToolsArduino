@@ -10,9 +10,9 @@ The first step to building the apps on your computer is to obtain the source cod
 
 The source code can be copied, and separated into source modules from the Appendix.  The alternative is to download the free source code .zip files that come as extras with the purchase of this eBook from leanpub.com.
 
-One zip file contains the Arduino source code for Arduino sketches LoraPing, LoraRepeat, LoraTerminal, and LoraBridge.  Separate identical copies of RH_RF95.cpp and RH_RF95.h are included in each sketch.
+One zip file contains the Arduino source code for Arduino sketches LoraPing, LoraRepeat, LoraTerminal, and LoraBridge.  Separate identical copies of RH_RF95.cpp and RH_RF95.h should be included in each sketch.
 
-The other zip file contains the RadioHead.zip library, without RH_RF95.cpp and RH_RF95.h. The section immediately below tells how to install the RadioHead.zip library, and other necessary arduino modules.
+The other zip file contains the RadioHead.zip library, without RH_RF95.cpp and RH_RF95.h. The section immediately below tells how to install the RadioHead.zip library, and other necessary Arduino modules.
 
 If the source code email from leanpub is overlooked after the purchase, you can get a link to the folders from your leanpub library.
 
@@ -24,9 +24,9 @@ Adafruit provides excellent, detailed instructions for downloading and setting u
 
 Further instructions covering the acquisition and use of the Adafruit SAMD Arduino core software and libraries can be found at <https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/adapting-sketches-to-m0>.
 
-Adafruit also has a helpful troubleshooting guide for getting past common Arduino setup problems.  This is located at <https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/faq>.
+Adafruit also has a helpful troubleshooting guide for getting past common Arduino setup issues.  This is located at <https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/faq>.
 
-With all the help available at the Adafruit site, you might think that getting the build environment working is a slam-dunk.  The biggest problem I encountered was getting Arduino to recognize and use the serial port on my Mac, Linux, or Windows computer.  I never did get it to find my serial port on Windows 7, service pack 1.  It took some messing with groups and permissions to get it to work on a Debian mate system, and it took time to get Arduino to recognize a serial port on the Mac.
+With all the help available at the Adafruit site, you might think that getting the build environment working is a slam-dunk.  The biggest problem I encountered was getting Arduino to recognize and use the serial port on my Mac, Linux, or Windows computer.  I never did get it to find a serial port on Windows 7, service pack 1.  It took some messing with groups and permissions to get it to work on a Debian mate system, and it took time to get Arduino to recognize a serial port on the Mac.
 
 After visiting many internet sites describing the problem and its solution on all three platforms, I finally got the Mac version of Arduino to recognize a serial port, and load and run a program after reading every entry in the faq at the Adafruit troubleshooting guide linked above.
 
@@ -48,7 +48,7 @@ All four supplied applications should be copied into the Arduino user directory 
         
 ~~~~~~~~
 
-Libraries must be installed in your Arduino environment before they can be used in a sketch.  Before you can include the Adafruit libraries, you must follow the instructions at the < https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/setup> link which tell Arduino to include Adafruit libraries in searches.
+Libraries must be installed in your Arduino environment before they can be used in a sketch.  Before you can include the Adafruit libraries, you must follow the instructions at the <https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/setup> link which tell Arduino to include Adafruit libraries in searches.
 
 Then you can choose Manage Libraries from the Tools Menu to search for and install libraries for your applications.
 

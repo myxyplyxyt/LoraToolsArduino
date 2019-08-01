@@ -146,7 +146,7 @@ void loop()
  */
             digitalWrite(LED, HIGH);
             delay(2);
-            while(rf95.modeIsTx()) delay(1);
+            while(rf95.isModeTx()) delay(1);
             digitalWrite(LED, HIGH);
 
         }

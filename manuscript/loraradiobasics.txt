@@ -147,8 +147,8 @@ For more detailed analysis of LoRa duty-cycle and other limitations, check out t
 
 ## Radio range test 
 
-Lora Parameter settings have an effect not only on error rate, and speed of transmission, but range as well.
+Lora Parameter settings affect not only on error rate, and speed of transmission, but range as well.
 
-A simple range test with the adafruit SAMD M0 Arduino board using 915 MHz center frequency, and  8.2cm quarterwave hookup wire antennas using no ground plane.  When configured with Radio Head's default parameters for medium range and speed, at a 20dBm power setting, the minimum range achieved down a winding, tree-lined road was 600Yds.
+A simple range test was done with the adafruit SAMD M0 Arduino board using 915 MHz center frequency, and 8.2cm quarterwave, hookup wire antennas with no ground plane.  When configured with Radio Head default parameters for medium range and speed, at a 20dBm power setting, the range achieved down a winding, tree-lined road was 600Yds.
 
 
