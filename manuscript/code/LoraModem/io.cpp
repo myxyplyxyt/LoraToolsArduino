@@ -111,7 +111,7 @@ void handleIo(void)
  */
    while(Serial.available()) {
         startime = millis();
-        while((millis() - startime)<2000) {
+        while((millis() - startime)<200) {
             if((ch = Serial.read())>=0) {
                  loraFifoPush((uint8_t)ch);
                  startime = millis();

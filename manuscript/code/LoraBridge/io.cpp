@@ -1,5 +1,5 @@
 /*
- * io.cpp -- manage LoRa and Serial UART input and output
+ * io.cpp -- manage LoRa and Sensor input and output
  *
  * MIT License
  *
@@ -35,10 +35,10 @@
  // the bool isModeTx() method was added to
  // simplify the handleIo routine.
 #include <SPI.h>
+#include "led.h"
 #include "RH_RF95.h"
 #include "variant.h"
 #include "wiring_private.h"
-#include "led.h"
 #include "loraio.h"
 #include "serialio.h"
 #include "io.h"
@@ -117,7 +117,7 @@ void handleIo(void)
  */
    while(Serial1.available()) {
         startime = millis();
-        while((millis() - startime)<2000) {
+        while((millis() - startime)<300) {
             if((ch = Serial1.read())>=0) {
                  loraFifoPush((uint8_t)ch);
                  startime = millis();
