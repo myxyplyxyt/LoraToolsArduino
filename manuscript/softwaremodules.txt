@@ -34,15 +34,15 @@ The flowchart for the repeat app is:
 ![](images/repeatFlowchart.png)
  
 
-## Lora Terminal Application
+## Lora Modem Application
 
-The terminal application allows the user to use Arduino’s built-in serial terminal to exchange lora messages with remote devices.  It can be used for text communication with another Lora Terminal, or anyone who is in-range and equipped with a loraBridge device and Adafruit Bluefruit app on iPhone or Android.
+The modem application allows the user to use Arduino’s built-in serial monitor or an external serial terminal to exchange lora messages with remote devices.  It can be used for text communication with another Lora Modem, or anyone who is in-range and equipped with a loraBridge device and Adafruit Bluefruit app on iPhone or Android.
 
-![](images/terminalOverview.png)
+![](images/modemOverview.png)
 
 The flowchart for the terminal app is:
 
-![](images/terminalFlowchart.png)
+![](images/modemFlowchart.png)
  
 
 ## Lora Bridge Application
@@ -60,7 +60,7 @@ The flowchart for the bridge app is:
 
 A back-leveled version of the RadioHead library for Arduino SAMD M0 was used because it is simpler than the latest version.
 
-The library used can be installed from the RadioHead.zip file distributed with this eBook.  That zip file includes every part of the library except the RH_RF95.cpp and RH_RF95.h files.  Those source modules were slightly modified and are included the individual app directories.  To install the RadioHead.zip library, select Include Library from the Arduino Sketch menu.  Then select Include .ZIP Library from the menu that comes up.  The changes to RH_RF95.cpp and RH_RF95.h are documented below:
+The library can be installed from the RadioHead.zip file distributed with this eBook.  That zip file includes every part of the library; but minor changes were made to the RH_RF95.cpp and RH_RF95.h files.  To install the RadioHead.zip library, select Include Library from the Arduino Sketch menu.  Then select Include .ZIP Library from the menu that comes up.
 
 The changes made to RH_RF95.cpp and RH_RF95.h were:
 

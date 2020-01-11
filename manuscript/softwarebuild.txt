@@ -8,13 +8,17 @@ The first step to building the apps on your computer is to obtain the source cod
 
 ## Obtaining the Source Code
 
-The source code can be copied, and separated into source modules from the Appendix.  The alternative is to download the free source code .zip files that come as extras with the purchase of this eBook from leanpub.com.
+To access, at no additional cost, your copy of the lora remote sensing source code for the target board, go to your account at leanpub.com, and choose the dropdown menu option 'Library'.  There should be an image of the eBook **Lora Tools for Arduino SAMD M0** on the page that appears.  Click that image, and a new blurb should appear which shows a bigger image of the cover, beside which is seen the legend Read This Book, which is above a vertical list of formats in which the book can be read.  At the bottom of that list is the entry 'Download Extras'.
 
-One zip file contains the Arduino source code for Arduino sketches LoraPing, LoraRepeat, LoraTerminal, and LoraBridge.  Separate identical copies of RH_RF95.cpp and RH_RF95.h should be included in each sketch.
+Click that Download Extras entry and your browser should automatically download two zip files.  If the Download Extras entry is not present, you can send me an email message through leanpub, and I will fix the problem.
 
-The other zip file contains the RadioHead.zip library, without RH_RF95.cpp and RH_RF95.h. The section immediately below tells how to install the RadioHead.zip library, and other necessary Arduino modules.
+The ArduinoLoraApps.zip file contains the Arduino source code for Arduino sketches LoraPing, LoraRepeat, LoraModem, and LoraBridge.
 
-If the source code email from leanpub is overlooked after the purchase, you can get a link to the folders from your leanpub library.
+The RadioHead.zip file contains a modified version of the RadioHead-1.62.zip library, which was modified to make it compatible with messages having no headers.  It was further modified to provide the lora module with a simple way to know when the radio finished transmitting.
+
+These Lora sketches in this eBook will not work with the unmodified RadioHead library. 
+
+The follow-on eBook **LoRa Remote Sensing** employs a simplified way to identify the source and destination of network messages, if needed.
 
 ## Preparing the build environment
 
@@ -32,30 +36,15 @@ After visiting many internet sites describing the problem and its solution on al
 
 ## Building the applications with Arduino
 
-All four supplied applications should be copied into the Arduino user directory created by the Arduino installation. That directory also contains a libraries directory into which you can install support for your Adafruit SAMD M0 board and RadioHead.zip library.  The directory structure below worked fine on the Mac:
-
-{line-numbers=off}
-~~~~~~~~
-
-    /Users/Documents/username/Arduino/   (this directory created by Arduino installation)
-        /libraries
-            /Adafruit_IO_Arduino
-            /RadioHead   (from RadioHead.zip)
-        /LoraBridge
-        /LoraPing
-        /LoraRepeat
-        /LoraTerminal
-        
-~~~~~~~~
+All four supplied application folders should be copied into the Arduino user directory created by the Arduino installation.  As of this writing, when Arduino is installed on the Mac, the Arduino user directory is /User/your username/Documents/Arduino.  In Windows7 it is c:\Program Files (x86)\Arduino.  In Debian Linux it is /home/your usernanme/Arduino.
 
 Libraries must be installed in your Arduino environment before they can be used in a sketch.  Before you can include the Adafruit libraries, you must follow the instructions at the <https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/setup> link which tell Arduino to include Adafruit libraries in searches.
 
-Then you can choose Manage Libraries from the Tools Menu to search for and install libraries for your applications.
+Then you can choose Manage Libraries from the Arduino Tools Menu to search for and install libraries for your applications.
 
 Once you have installed the appropriate libraries, you can select them for your libraries directory by choosing Include Library from the Sketch menu and picking the desired library or libraries in the list that appears.
 
-The RadioHead.zip library is included by choosing Include Library from the Sketch menu, choosing the Add .ZIP Library option from the submenu, and then picking the RadioHead.zip file that you downloaded from leanpub.com in the file dialog that appears.
-
+The RadioHead.zip library is included by choosing Include Library from the Sketch menu, choosing the Add .ZIP Library option from the submenu, and then picking the RadioHead.zip file that you downloaded from leanpub.com in the file dialog that appears. 
 
 ## Building and Loading an Application
 

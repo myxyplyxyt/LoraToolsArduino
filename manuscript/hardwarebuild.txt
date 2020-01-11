@@ -2,8 +2,10 @@
 
 ## Adafruit Atmel SAMD M0 Lora Radio Board ##
 
-It doesn’t get any simpler than this.  The only necessary modification to the board from Adafruit was to add an antenna and battery. An antenna composed of 8.2cm of jumper wire can be soldered into the wire antenna hole at one end of the board.  Unless you are good at soldering antenna sockets, the jumper wire antenna is your best bet.
+It doesn’t get any simpler than this.  The only necessary modification to the board from Adafruit was to add an antenna and battery.
 
+Unless you are good at soldering antenna sockets, the jumper wire antenna is your best bet.  An antenna composed of 8.2cm of jumper wire can be soldered into the wire antenna hole at one end of the board.
+  
 A LiPoly battery such as that available from Spark Fun or Adafruit can be plugged into the battery charger port.
 
   ![radioBoard](images/loraRadioBoard.png)

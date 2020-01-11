@@ -48,13 +48,15 @@ You can test the ping program without the Spectrum Analyzer if you can get the t
 The SPI pin assignments are made in the Adafruit Arduino Core library for the SAMD M0 board and should be the ones labled on the board.  If your ping program is running you should be able to see with an oscilloscope, data going out on the MOSI and SCK pins.  If you dont, then that is why there is no radio output.  Try to find out why there is no output on those pins.  Once you get the ping program running, the others should be easier.
 
 
-## Testing the Lora Terminal application
+## Testing the Lora Modem application
 
-The terminal app is a useful program to test next, because it lets you send and receive lora messages with the Arduino serial console.
+The modem app is a useful program to test next, because it lets you send and receive lora messages with the Arduino serial console or an external terminal program on your PC.
 
-You will need two Adafruit SAMD M0 Lora boards to test the terminal application.  Program one board with the LoraPing application (first comment out the DEBUG definition and resave the program), and the other with the Terminal application.
+You will need two Adafruit SAMD M0 Lora boards to test the modem application.  Program one board with the LoraPing application (first comment out the DEBUG definition and resave the program), and the other with the Modem application.
 
-Power up the terminal application first, and open its serial monitor.    If initialization works, you will see the initialization messages:
+Power up the modem application first, open its serial monitor, or connect an external terminal program with a USB cable to your SAMD M0 board, plug it into the appropriate port on your PC, set the port baud rate to 115200, and connect to the port.
+
+Hit return on the serial monitor or terminal program.    When initialization works, you will see the initialization messages:
 
 {line-numbers=off}
 ~~~~~~~~
@@ -65,7 +67,7 @@ Set Freq to: 915.00
 
 If initialization doesn't work, go back through and check the code line-for-line, verify that the build works, and that the program is actually being loaded on to the board when you click the Arduino right arrow load button.  Check for error messages in the compile and load, and generally do what you did to debug the ping program.  (That is why it was important to get that done first.)
 
-Once you get the terminal program to initialize correctly, leave it running and power up the ping program. Verify that the ping output starts coming out on the serial console of the terminal application.
+Once you get the modem program to initialize correctly, leave it running and power up the ping program. Verify that the ping output starts coming out on the serial console of the modem application or on your external serial terminal.
 
 {line-numbers=off}
 ~~~~~~~~
@@ -78,9 +80,9 @@ PING XYZ1234567890ABCDEFGHIJKLMNOPQRSTUVW
 and so on.
 ~~~~~~~~
 
-If you dont see pings on the serial monitor of your terminal program, go back and recheck the ping program to make sure it is sending data.  If the ping program is sending data, and the baud rate of the Serial port in the ping program is set to 115200, the problem must lie with the terminal program.
+If you dont see pings on the Arduino serial monitor or the external serial terminal, go back and recheck the ping program to make sure it is sending data.  If the ping program is sending data, and the baud rate of the Serial port in the ping program is set to 115200, the problem must lie with the modem program or the connection to an external serial terminal.
 
-It may be time to to insert Serial.print statements into the terminal program to find out where in the program it goes wrong.  Hopefully, that will help you discover why it does not produce the expected output. 
+It may be time to stop using an external terminal, insert Serial.print statements into the modem program, and watch the Arduino serial monitor to find out where in the program it goes wrong.  Hopefully, that will help you discover why it does not produce the expected output. 
 
 
 ## Testing the LoraRepeat application

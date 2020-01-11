@@ -6,17 +6,23 @@ It is useful for such things as perimeter security devices, packet radio communi
 
 This eBook describes software developed for the Adafruit SAMD M0 Lora Board, using the Arduino IDE with RadioHead Library.  That processor board with radio are available for purchase at adafruit.com.  The boards are pictured and links given to complete technical information at adafruit.com.
 
-Software modules developed for this eBook are:  Lora ping, lora repeat, arduino-lora terminal,  and bluetooth-lora bridge applications.  The architecture and/or design of each of the software modules is described in a section of this book.
+Software modules developed for this eBook are:  lora ping, lora repeat, lora modem,  and bluetooth-lora bridge applications.  The architecture and/or design of each of the software modules is described in a section of this book.
 
-Original source code written for the applications is included in the Appendix. Suggestions are given for building the hardware and software modules in the Arduino environment using Adafruit and RadioHead libraries. Are also supplied are hints for testing and debugging the modules.
+Original source code written for the applications is included in the Appendix. Suggestions are given for building the hardware and software modules in the Arduino environment using Adafruit and RadioHead libraries. Also supplied are hints for testing and debugging the modules.
  
 The information in this book is most suitable for Arduino-familiar hobbyists and engineers, who want to gain hands-on experience with the LoRa radio technology and an Atmel SAMD M0 Arduino compatible board with an on-board Semtech Lora radio, using a RadioHead Arduino driver.
 
 ## Hardware Summary
 
-The processor boards used for the lora programs are the **Adafruit Feather M0 with RFM95 LoRa Radio - 900MHz** and the **Adafruit Bluefruit LE UART Friend - Bluetooth** from the same vendor.
-  
+The processor board used for the lora programs is the **Adafruit Feather M0 with RFM95 LoRa Radio - 900MHz**.
+
+![](images/loraProcessorBoard.png)
+
+This board can be used by itself for the LoraPing, LoraRepeat, and LoraModem programs.  The LoraBridge program requires the breadboard shown below.
+
 ![](images/loraBridgeBreadboard.png)
+
+The processor board is an earlier version without the RF shield of the current version.  The added board is the **Adafruit Bluefruit LE UART Friend**  
 
 Adafruit web pages for the boards are located at:
 
