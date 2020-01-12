@@ -23,31 +23,31 @@
 {linenos=off}
 <<[LoraRepeat.ino](code/LoraRepeat/LoraRepeat.ino)
 
-### C Code for LoraTerminal
+### C Code for LoraModem
 
 {linenos=off}
-<<[LoraTerminal.ino](code/LoraTerminal/LoraTerminal.ino)
+<<[LoraModem.ino](code/LoraModem/LoraModem.ino)
 
 {linenos=off}
-<<[io.h](code/LoraTerminal/io.h)
+<<[io.h](code/LoraModem/io.h)
 
 {linenos=off}
-<<[io.cpp](code/LoraTerminal/io.cpp)
+<<[io.cpp](code/LoraModem/io.cpp)
 
 {linenos=off}
-<<[led.h](code/LoraTerminal/led.h)
+<<[led.h](code/LoraModem/led.h)
 	
 {linenos=off}
-<<[loraio.h](code/LoraTerminal/loraio.h)
+<<[loraio.h](code/LoraModem/loraio.h)
 
 {linenos=off}
-<<[loraio.cpp](code/LoraTerminal/loraio.cpp)
+<<[loraio.cpp](code/LoraModem/loraio.cpp)
 
 {linenos=off}
-<<[serialio.h](code/LoraTerminal/serialio.h)
+<<[serialio.h](code/LoraModem/serialio.h)
 
 {linenos=off}
-<<[serialio.cpp](code/LoraTerminal/serialio.cpp)
+<<[serialio.cpp](code/LoraModem/serialio.cpp)
 
 
 ### C Code for LoraBridge
