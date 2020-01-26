@@ -1,3 +1,4 @@
+#include <Arduino.h>
 #include "led.h"
 #include "io.h"
 
@@ -15,10 +16,10 @@ void setup(void)
 void loop(void) {
 
 /*
-*  Manage the transfer of lora input to the Uart for output,
-*  and the transfer of Uart input to the lora radio for output.
+*  Manage the transfer of lora input to the BLE Uart for output,
+*  and the transfer of BLE Uart input to the lora radio for output.
  */
-   ioStateMachine();
+   handleIo();
 }
 
 void ledInit(void)

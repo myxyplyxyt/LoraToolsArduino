@@ -29,7 +29,7 @@
 /*
  * LoRa FIFO declarations
  */
-#define LORA_FIFOSIZE 1023  // must be power of two minus 1
+#define LORA_FIFOSIZE 255  // must be power of two minus 1
  
 static uint8_t loraFifo[LORA_FIFOSIZE+1];
 static volatile unsigned int fifoIn=0;

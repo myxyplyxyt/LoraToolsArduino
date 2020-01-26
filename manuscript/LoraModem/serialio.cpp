@@ -1,5 +1,5 @@
 /*
- * loraio.c -- init lora radio and manage lora fifo.
+ * serialio.cpp -- manage serial input and output
  *
  * MIT License
  *
@@ -24,85 +24,84 @@
  * SOFTWARE.
  */
 #include <Arduino.h>
-#include "loraio.h"
+#include "led.h"
+#include "serialio.h"
 
-/*
- * LoRa FIFO declarations
- */
-#define LORA_FIFOSIZE 1023  // must be power of two minus 1
- 
-static uint8_t loraFifo[LORA_FIFOSIZE+1];
+#define SERIAL_FIFOSIZE 1023    // must be power of two minus 1
+
+static byte serialFifo[SERIAL_FIFOSIZE+1];
 static volatile unsigned int fifoIn=0;
 static volatile unsigned int fifoOut=0;
 
 /*
- * ***  LoRa FIFO access
+ * ***  Serial FIFO access
  */
-
- /*
- * Initializes the lora fifo
- */
-void loraFifoInit( void )
+void serialFifoInit( void )
 {
     fifoIn=0;
-    fifoOut = LORA_FIFOSIZE+1;
+    fifoOut = SERIAL_FIFOSIZE+1;
     while(fifoOut) {     
-        loraFifo[--fifoOut]=0;
+        serialFifo[--fifoOut]=0;
     }
 }
 
-unsigned int loraFifoBytes(void)
+unsigned int serialFifoBytes(void)
 {
-   return ((fifoIn - fifoOut) & LORA_FIFOSIZE);
+   return ((fifoIn - fifoOut) & SERIAL_FIFOSIZE);
 }
 
-
-boolean loraFifoEmpty(void)
+unsigned int serialFifoFree(void)
 {
-    return (loraFifoBytes()==0);
+    return (SERIAL_FIFOSIZE - serialFifoBytes());
 }
 
-boolean loraFifoFull(void)
+bool serialFifoEmpty(void)
 {
-  return ( loraFifoBytes()==LORA_FIFOSIZE);
+    return (fifoIn==fifoOut);
+}
+
+bool serialFifoFull(void)
+{
+    return ( serialFifoBytes()==SERIAL_FIFOSIZE);
 }
 
 /*
- * loraFifoPush
- * Put a single byte into the lora output fifo
- * return false if fifo is full
- * else return true
+ * serialFifoPush
+ * Put a single character into the serial fifo
+ * return 0 if fifo is full
+ * else return 1
  */
-uint8_t loraFifoPush(uint8_t ch)
+uint8_t serialFifoPush(uint8_t ch)
 {
-    if(loraFifoFull()) return 0;
-    loraFifo[fifoIn++]=ch;
-    fifoIn &= LORA_FIFOSIZE;
+    if(serialFifoFull()) return 0;
+    serialFifo[fifoIn++]=ch;
+    fifoIn &= SERIAL_FIFOSIZE;
     return 1;
 }
 
+
 /*
- * Obtains next character from the FIFO
+ * Obtain next character from the FIFO
  *
  * return
  * -1 if FIFO is empty or error encountered
  * next character from FIFO
  */
-int loraFifoPop( void )
+int serialFifoPop( void )
 {
     int outbyte;
     
-    if(loraFifoEmpty()) return -1;
-    outbyte=(int)loraFifo[fifoOut++];
-    fifoOut &= LORA_FIFOSIZE;
+    if(serialFifoEmpty()) return -1;
+    outbyte=(int)serialFifo[fifoOut++];
+    fifoOut &= SERIAL_FIFOSIZE;
     return outbyte;
 }
 
-int loraFifoPeek( void )
+int serialFifoPeek( void )
 {
     int outbyte;
-    
-    if(loraFifoEmpty()) return -1;
-    outbyte=(int)loraFifo[fifoOut];
+
+    if(serialFifoEmpty()) return -1;
+    outbyte=(int)serialFifo[fifoOut];
     return outbyte;
 }
