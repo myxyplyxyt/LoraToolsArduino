@@ -66,7 +66,7 @@ The changes made to RH_RF95.cpp and RH_RF95.h were:
 
 1)  The RadioHead Library RH_RF95.cpp and .h files define a four-byte header within the payload of the lora message. That header can be used, if desired, with another RadioHead driver module that supports network identifiers and flags for each node in a Lora Network.  Those identifiers and flags are unnecessary.  They can be included as part of the message if needed, but they complicate the program structure, which conflicts with the goal of simplicity for this eBook.
 
-2)  The validateRxBuf() function was modified to ignore the network identifiers and flags, and the four-byte header definition, which are used to identify nodes in the network.  If network identifiers are later included within the message, the validateRxBuf() routine can be modified to check them.
+2)  The validateRxBuf() function was modified to ignore the network identifiers and flags, and the four-byte header definition, which are used to identify nodes in the network.  A host identifier was added to the command line to provide an alternate way to address multiple nodes within LoRa range.
 
 3)  A method called modeIsTx() was added to RH_RF95.cpp to return true if the radio is busy transmitting data, and false if it is not transmitting.  This simplifies the code which must wait until the transmit complete interrupt is received before doing anything else.
 
